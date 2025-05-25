@@ -1,0 +1,14 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="panel main-panel">
+    <h2>{% if form.instance.pk %}Редактировать ТО{% else %}Добавить ТО{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.machine }}
+        {{ form.as_p }}
+        <input type="hidden" name="machine" value="10" id="id_machine">
+        <button type="submit" class="auth-btn">Сохранить</button>
+        <a href="{% url 'dashboard' %}" class="auth-btn" style="background:#163E6C;">Отмена</a>
+    </form>
+</div>
+{% endblock %}

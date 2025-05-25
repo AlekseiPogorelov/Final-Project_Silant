@@ -1,0 +1,27 @@
+<form method="get" style="margin-bottom:2em; margin-top:2em;">
+            <input type="hidden" name="tab" value="claims">
+            <label for="machine_id"><b>Выберите машину:</b></label>
+            <select name="machine_id" id="machine_id" onchange="this.form.submit()">
+                {% for machine in machines %}
+                    <option value="{{ machine.id }}" {% if machine.id == selected_machine.id %}selected{% endif %}>
+                        {{ machine.model }} ({{ machine.serial_number }})
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+        <div class="info-text">Информация о рекламациях для машины {{ selected_machine.serial_number }}</div>
+        <form method="get" style="margin-bottom:1em;">
+    <input type="hidden" name="tab" value="claims">
+    <input type="hidden" name="machine_id" value="{{ selected_machine.id }}">
+    <label for="claim_ordering"><b>Сортировать по:</b></label>
+    <select name="ordering" id="claim_ordering" onchange="this.form.submit()">
+        <option value="-failure_date" {% if request.GET.ordering == "-failure_date" or not request.GET.ordering %}selected{% endif %}>Дата отказа (новые сверху)</option>
+        <option value="failure_date" {% if request.GET.ordering == "failure_date" %}selected{% endif %}>Дата отказа (старые сверху)</option>
+        <option value="failed_unit" {% if request.GET.ordering == "failed_unit" %}selected{% endif %}>Узел отказа (А-Я)</option>
+        <option value="-failed_unit" {% if request.GET.ordering == "-failed_unit" %}selected{% endif %}>Узел отказа (Я-А)</option>
+        <option value="recovery_method" {% if request.GET.ordering == "recovery_method" %}selected{% endif %}>Способ восстановления (А-Я)</option>
+        <option value="-recovery_method" {% if request.GET.ordering == "-recovery_method" %}selected{% endif %}>Способ восстановления (Я-А)</option>
+        <option value="service_company" {% if request.GET.ordering == "service_company" %}selected{% endif %}>Сервисная компания (А-Я)</option>
+        <option value="-service_company" {% if request.GET.ordering == "-service_company" %}selected{% endif %}>Сервисная компания (Я-А)</option>
+    </select>
+</form>

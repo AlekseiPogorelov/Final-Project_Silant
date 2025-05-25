@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="panel main-panel">
+    <h2>Детальная информация о ТО</h2>
+    <table class="silant-table">
+        <tr><th>Машина</th><td>{{ maintenance.machine }}</td></tr>
+        <tr><th>Вид ТО</th><td>{{ maintenance.maintenance_type }}</td></tr>
+        <tr><th>Дата проведения ТО</th><td>{{ maintenance.date }}</td></tr>
+        <tr><th>Наработка, м/час</th><td>{{ maintenance.operating_time }}</td></tr>
+        <tr><th>№ заказ-наряда</th><td>{{ maintenance.order_number }}</td></tr>
+        <tr><th>Дата заказ-наряда</th><td>{{ maintenance.order_date }}</td></tr>
+        <tr><th>Организация, проводившая ТО</th><td>{{ maintenance.service_company }}</td></tr>
+    </table>
+    <p>{{ maintenance.description }}</p>
+    <a href="{% url 'dashboard' %}?tab=to" class="auth-btn" style="background:#163E6C;">Назад</a>
+</div>
+{% endblock %}

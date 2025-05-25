@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="panel main-panel">
+    <h2>Детальная информация о рекламации</h2>
+    <table class="silant-table">
+        <tr><th>Машина</th><td>{{ claim.machine }}</td></tr>
+        <tr><th>Дата отказа</th><td>{{ claim.failure_date }}</td></tr>
+        <tr><th>Наработка, м/час</th><td>{{ claim.operating_time }}</td></tr>
+        <tr><th>Узел отказа</th><td>{{ claim.failed_unit }}</td></tr>
+        <tr><th>Описание отказа</th><td>{{ claim.failure_description }}</td></tr>
+        <tr><th>Способ восстановления</th><td>{{ claim.recovery_method }}</td></tr>
+        <tr><th>Используемые запасные части</th><td>{{ claim.used_parts }}</td></tr>
+        <tr><th>Дата восстановления</th><td>{{ claim.recovery_date }}</td></tr>
+        <tr><th>Время простоя техники</th><td>{{ claim.downtime }}</td></tr>
+        <tr><th>Сервисная компания</th><td>{{ claim.service_company }}</td></tr>
+    </table>
+    <p>{{ claim.description }}</p>
+    <a href="{% url 'dashboard' %}?tab=claims" class="auth-btn" style="background:#163E6C;">Назад</a>
+</div>
+{% endblock %}

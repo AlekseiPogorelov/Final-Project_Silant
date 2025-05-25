@@ -1,0 +1,18 @@
+<form method="get" style="margin-bottom:2em; margin-top:2em;">
+    <input type="hidden" name="tab" value="info">
+    <label for="machine_ordering"><b>Сортировать по:</b></label>
+    <select name="ordering" id="machine_ordering" onchange="this.form.submit()">
+        <option value="-shipment_date" {% if request.GET.ordering == "-shipment_date" or not request.GET.ordering %}selected{% endif %}>Дата отгрузки (новые сверху)</option>
+        <option value="shipment_date" {% if request.GET.ordering == "shipment_date" %}selected{% endif %}>Дата отгрузки (старые сверху)</option>
+        <option value="model" {% if request.GET.ordering == "model" %}selected{% endif %}>Модель техники (А-Я)</option>
+        <option value="-model" {% if request.GET.ordering == "-model" %}selected{% endif %}>Модель техники (Я-А)</option>
+        <option value="engine_model" {% if request.GET.ordering == "engine_model" %}selected{% endif %}>Модель двигателя (А-Я)</option>
+        <option value="-engine_model" {% if request.GET.ordering == "-engine_model" %}selected{% endif %}>Модель двигателя (Я-А)</option>
+        <option value="transmission_model" {% if request.GET.ordering == "transmission_model" %}selected{% endif %}>Модель трансмиссии (А-Я)</option>
+        <option value="-transmission_model" {% if request.GET.ordering == "-transmission_model" %}selected{% endif %}>Модель трансмиссии (Я-А)</option>
+        <option value="steer_axle_model" {% if request.GET.ordering == "steer_axle_model" %}selected{% endif %}>Модель управляемого моста (А-Я)</option>
+        <option value="-steer_axle_model" {% if request.GET.ordering == "-steer_axle_model" %}selected{% endif %}>Модель управляемого моста (Я-А)</option>
+        <option value="drive_axle_model" {% if request.GET.ordering == "drive_axle_model" %}selected{% endif %}>Модель ведущего моста (А-Я)</option>
+        <option value="-drive_axle_model" {% if request.GET.ordering == "-drive_axle_model" %}selected{% endif %}>Модель ведущего моста (Я-А)</option>
+    </select>
+</form>

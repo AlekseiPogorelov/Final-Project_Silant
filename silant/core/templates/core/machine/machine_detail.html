@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="panel main-panel">
+    <h2>Детальная информация о машине</h2>
+    <table class="silant-table">
+        <tr><th>Модель техники</th><td>{{ machine.model }}</td></tr>
+        <tr><th>Зав. № машины</th><td>{{ machine.serial_number }}</td></tr>
+        <tr><th>Модель двигателя</th><td>{{ machine.engine_model }}</td></tr>
+        <tr><th>Зав. № двигателя</th><td>{{ machine.engine_serial }}</td></tr>
+        <tr><th>Модель трансмиссии (производитель, артикул)</th><td>{{ machine.transmission_model }}</td></tr>
+        <tr><th>Зав. № трансмиссии</th><td>{{ machine.transmission_serial }}</td></tr>
+        <tr><th>Модель ведущего моста</th><td>{{ machine.drive_axle_model }}</td></tr>
+        <tr><th>Зав. № ведущего моста</th><td>{{ machine.drive_axle_serial }}</td></tr>
+        <tr><th>Модель управляемого моста</th><td>{{ machine.steer_axle_model }}</td></tr>
+        <tr><th>Зав. № управляемого моста</th> <td>{{ machine.steer_axle_serial }}</td></tr>
+        <tr><th>Дата отгрузки с завода</th><td>{{ machine.shipment_date }}</td></tr>
+        <tr><th>Покупатель</th><td>{{ machine.client }}</td></tr>
+        <tr><th>Грузополучатель (конечный потребитель)</th><td>{{ machine.consignee }}</td></tr>
+        <tr><th>Адрес поставки (эксплуатации)</th><td>{{ machine.delivery_address }}</td></tr>
+        <tr><th>Комплектация (доп. опции)</th><td>{{ machine.equipment }}</td></tr>
+        <tr><th>Сервисная компания</th> <td>{{ machine.service_company }}</td></tr>
+    </table>
+    <p>{{ machine.description }}</p>
+    <a href="{% url 'dashboard' %}" class="auth-btn" style="background:#163E6C;">Назад</a>
+</div>
+{% endblock %}

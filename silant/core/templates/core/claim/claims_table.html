@@ -1,0 +1,30 @@
+<table class="silant-table sortable" id="claims-table">
+                <thead>
+                    <tr>
+                        <th>Дата отказа</th>
+                        <th>Наработка, м/час</th>
+                        <th>Узел отказа</th>
+                        <th>Описание отказа</th>
+                        <th>Способ восстановления</th>
+                        <th>Используемые запасные части</th>
+                        <th>Дата восстановления</th>
+                        <th>Время простоя техники</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for claim in claims %}
+                    <tr class="table-row-link" onclick="window.location='{% url 'claim_detail' claim.id %}'" style="cursor:pointer;">
+                        <td>{{ claim.failure_date }}</td>
+                        <td>{{ claim.operating_time }}</td>
+                        <td>{{ claim.failed_unit }}</td>
+                        <td>{{ claim.failure_description }}</td>
+                        <td>{{ claim.recovery_method }}</td>
+                        <td>{{ claim.used_parts }}</td>
+                        <td>{{ claim.recovery_date }}</td>
+                        <td>{{ claim.downtime }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="8">Нет данных</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>

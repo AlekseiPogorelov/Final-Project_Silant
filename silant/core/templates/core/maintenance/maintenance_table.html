@@ -1,0 +1,32 @@
+<table class="silant-table sortable" id="maintenance-table">
+                <thead>
+                    <tr>
+                        <th>Вид ТО</th>
+                        <th>Дата проведения ТО</th>
+                        <th>Наработка, м/час</th>
+                        <th>№ заказ-наряда</th>
+                        <th>Дата заказ-наряда</th>
+                        <th>Организация, проводившая ТО</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for to in maintenances %}
+                <tr class="table-row-link" onclick="window.location='{% url 'maintenance_detail' to.id %}'" style="cursor:pointer;">
+                    <td>{{ to.maintenance_type }}</td>
+                    <td>{{ to.date }}</td>
+                    <td>{{ to.operating_time }}</td>
+                    <td>{{ to.order_number }}</td>
+                    <td>{{ to.order_date }}</td>
+                    <td>
+                        {% if to.service_company %}
+                            {{ to.service_company.name }}
+                        {% else %}
+                            <span style="color:#aaa;">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                    {% empty %}
+                    <tr><td colspan="6">Нет данных</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>

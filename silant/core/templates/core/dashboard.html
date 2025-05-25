@@ -1,0 +1,80 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+{% include "core/search_form.html" %}
+
+        {% if not user.is_authenticated or user.role == 'guest' %}
+     {% include "core/public_search.html" %}
+{% else %}
+    <div class="panel main-panel">
+        <span class="user-role-label">
+            {% if user.role == "manager" %}
+                <img src="{% static 'core/icons/manager.png' %}" alt="Менеджер" class="role-icon"> Менеджер
+            {% elif user.role == "service" %}
+                <img src="{% static 'core/icons/service.png' %}" alt="Сервисная компания" class="role-icon"> Сервисная компания
+            {% elif user.role == "client" %}
+                <img src="{% static 'core/icons/client.png' %}" alt="Клиент" class="role-icon"> Клиент
+            {% endif %}
+        </span>
+        <span class="user-header-name">
+            {{ user.get_full_name|default:user.username }}
+        </span>
+        <div class="info-textBody">Информация о комплектации и технических характеристиках Вашей техники</div>
+        <div class="tabs">
+            <div style="margin-bottom: 18px;">
+                <a href="?tab=info" class="tab-btn {% if tab == 'info' %}active{% endif %}">Машины</a>
+                <a href="?tab=to{% if selected_machine %}&machine_id={{ selected_machine.id }}{% endif %}" class="tab-btn {% if tab == 'to' %}active{% endif %}">ТО</a>
+                <a href="?tab=claims{% if selected_machine %}&machine_id={{ selected_machine.id }}{% endif %}" class="tab-btn {% if tab == 'claims' %}active{% endif %}">Рекламации</a>
+            </div>
+        </div>
+        <div>
+            {% if user_role == 'manager' %}
+            <div class="add-btn-group">
+                <a href="{% url 'machine_add' %}" class="add-btn">Добавить машину</a>
+            {% endif %}
+            {% if user_role in 'manager service client' and selected_machine %}
+                <a href="{% url 'maintenance_add' %}?machine_id={{ selected_machine.id }}" class="add-btn">Добавить ТО</a>
+            {% endif %}
+            {% if user_role in 'manager service' and selected_machine %}
+                <a href="{% url 'claim_add' %}?machine_id={{ selected_machine.id }}" class="add-btn">Добавить рекламацию</a>
+            {% endif %}
+            </div>
+        </div>
+
+        {% if tab == 'info' %}
+            {% include "core/machine/machines_filters.html" %}
+            <div class="table-block">
+                <div class="top-scrollbar-wrapper">
+                    <div class="top-scrollbar"><div></div></div>
+                    <div class="table-scrollbar-container">
+                        {% include "core/machine/machines_table.html" %}
+                    </div>
+                </div>
+            </div>
+        {% elif tab == 'to' and selected_machine %}
+            {% include "core/maintenance/maintenance_filters.html" %}
+            <div class="table-block">
+                <div class="top-scrollbar-wrapper">
+                    <div class="top-scrollbar"><div></div></div>
+                    <div class="table-scrollbar-container">
+                        {% include "core/maintenance/maintenance_table.html" %}
+                    </div>
+                </div>
+            </div>
+        {% elif tab == 'claims' and selected_machine %}
+            {% include "core/claim/claims_filters.html" %}
+            <div class="table-block">
+                <div class="top-scrollbar-wrapper">
+                    <div class="top-scrollbar"><div></div></div>
+                    <div class="table-scrollbar-container">
+                        {% include "core/claim/claims_table.html" %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+<script src="{% static 'core/js/dashboard.js' %}"></script>
+<script src="{% static 'core/js/sortable.min.js' %}"></script>
+{% endblock %}

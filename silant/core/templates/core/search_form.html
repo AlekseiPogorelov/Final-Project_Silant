@@ -1,0 +1,6 @@
+<div class="info-text">Проверьте комплектацию и технические характеристики техники Силант</div>
+<form method="get" action="{% url 'public_search_page' %}" class="search-form" style="margin-bottom: 1.5em;">
+    <label for="serial_number" style="font-weight:600;">Заводской номер:</label>
+    <input type="text" id="serial_number" name="serial_number" value="{{ serial_number|default:'' }}" placeholder="Введите номер">
+    <button type="submit" class="auth-btn">Поиск</button>
+</form>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Мой Силант{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <img src="{% static 'core/img/logo.jpg' %}" alt="Силант" class="logo">
+            <div class="header-contacts">
+                <span>+7-8352-20-12-09</span>
+                <span>telegram</span>
+            </div>
+            <div class="header-actions">
+            {% if user.is_authenticated %}
+                <form action="{% url 'account_logout' %}" method="post" style="margin:0;">
+                    {% csrf_token %}
+                    <button type="submit" class="auth-btn">Выйти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'account_login' %}" class="auth-btn">Авторизация</a>
+            {% endif %}
+        </div>
+            </div>
+        <div class="header-title">
+            Электронная сервисная книжка "Мой Силант"
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <span class="footer-contacts">+7-8352-20-12-09, telegram</span>
+            <span class="footer-brand">Мой Силант 2022</span>
+        </div>
+    </footer>
+</body>
+</html>

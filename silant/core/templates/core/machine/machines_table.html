@@ -1,0 +1,46 @@
+<table class="silant-table sortable" id="machines-table">
+                <thead>
+                    <tr>
+                        <th>Модель техники</th>
+                        <th>Зав. № машины</th>
+                        <th>Модель двигателя</th>
+                        <th>Зав. № двигателя</th>
+                        <th>Модель трансмиссии (производитель, артикул)</th>
+                        <th>Зав. № трансмиссии</th>
+                        <th>Модель ведущего моста</th>
+                        <th>Зав. № ведущего моста</th>
+                        <th>Модель управляемого моста</th>
+                        <th>Зав. № управляемого моста</th>
+                        <th>Дата отгрузки с завода</th>
+                        <th>Покупатель</th>
+                        <th>Грузополучатель (конечный потребитель)</th>
+                        <th>Адрес поставки (эксплуатации)</th>
+                        <th>Комплектация (доп. опции)</th>
+                        <th>Сервисная компания</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for machine in machines %}
+                    <tr onclick="window.location='{% url 'machine_detail' machine.id %}'" class="table-row-link">
+                        <td>{{ machine.model }}</td>
+                        <td>{{ machine.serial_number }}</td>
+                        <td>{{ machine.engine_model }}</td>
+                        <td>{{ machine.engine_serial }}</td>
+                        <td>{{ machine.transmission_model }}</td>
+                        <td>{{ machine.transmission_serial }}</td>
+                        <td>{{ machine.drive_axle_model }}</td>
+                        <td>{{ machine.drive_axle_serial }}</td>
+                        <td>{{ machine.steer_axle_model }}</td>
+                        <td>{{ machine.steer_axle_serial }}</td>
+                        <td>{{ machine.shipment_date }}</td>
+                        <td>{{ machine.client }}</td>
+                        <td>{{ machine.consignee }}</td>
+                        <td>{{ machine.delivery_address }}</td>
+                        <td>{{ machine.equipment }}</td>
+                        <td>{{ machine.service_company }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="16">Нет данных</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>

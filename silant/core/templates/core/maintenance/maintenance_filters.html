@@ -1,0 +1,25 @@
+<form method="get" style="margin-bottom:1em; margin-top:2em;">
+            <input type="hidden" name="tab" value="to">
+            <label for="machine_id"><b>Выберите машину:</b></label>
+            <select name="machine_id" id="machine_id" onchange="this.form.submit()">
+                {% for machine in machines %}
+                    <option value="{{ machine.id }}" {% if machine.id == selected_machine.id %}selected{% endif %}>
+                        {{ machine.model }} ({{ machine.serial_number }})
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+        <div class="info-text">Информация о проведённых ТО для машины {{ selected_machine.serial_number }}</div>
+        <form method="get" style="margin-bottom:2em;">
+    <input type="hidden" name="tab" value="to">
+    <input type="hidden" name="machine_id" value="{{ selected_machine.id }}">
+    <label for="maintenance_ordering"><b>Сортировать по:</b></label>
+    <select name="ordering" id="maintenance_ordering" onchange="this.form.submit()">
+        <option value="-date" {% if request.GET.ordering == "-date" or not request.GET.ordering %}selected{% endif %}>Дата проведения ТО (новые сверху)</option>
+        <option value="date" {% if request.GET.ordering == "date" %}selected{% endif %}>Дата проведения ТО (старые сверху)</option>
+        <option value="maintenance_type" {% if request.GET.ordering == "maintenance_type" %}selected{% endif %}>Вид ТО (А-Я)</option>
+        <option value="-maintenance_type" {% if request.GET.ordering == "-maintenance_type" %}selected{% endif %}>Вид ТО (Я-А)</option>
+        <option value="service_company" {% if request.GET.ordering == "service_company" %}selected{% endif %}>Сервисная компания (А-Я)</option>
+        <option value="-service_company" {% if request.GET.ordering == "-service_company" %}selected{% endif %}>Сервисная компания (Я-А)</option>
+    </select>
+</form>

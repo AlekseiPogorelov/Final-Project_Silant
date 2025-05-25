@@ -1,0 +1,50 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="panel main-panel">
+    <div class="info-text">Проверьте комплектацию и технические характеристики техники Силант</div>
+    <form method="get" action="{% url 'public_search_page' %}" class="search-form">
+        <label for="serial_number">Заводской номер:</label>
+        <input type="text" id="serial_number" name="serial_number" value="{{ serial_number }}">
+        <button type="submit" class="auth-btn">Поиск</button>
+    </form>
+    {% if machine_fields %}
+        <div class="info-text" style="margin-bottom:1em;">
+            Информация о комплектации и технических характеристиках Вашей техники
+        </div>
+        <div class="table-block">
+            <table class="silant-table">
+                <thead>
+                    <tr>
+                         <th>Модель техники</th>
+                        <th>Зав. № машины</th>
+                        <th>Модель двигателя</th>
+                        <th>Зав. № двигателя</th>
+                        <th>Модель трансмиссии (производитель, артикул)</th>
+                        <th>Зав. № трансмиссии</th>
+                        <th>Модель ведущего моста</th>
+                        <th>Зав. № ведущего моста</th>
+                        <th>Модель управляемого моста</th>
+                        <th>Зав. № управляемого моста</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ machine_fields.model }}</td>
+                        <td>{{ machine_fields.serial_number }}</td>
+                        <td>{{ machine_fields.engine_model }}</td>
+                        <td>{{ machine_fields.engine_serial }}</td>
+                        <td>{{ machine_fields.transmission_model }}</td>
+                        <td>{{ machine_fields.transmission_serial }}</td>
+                        <td>{{ machine_fields.drive_axle_model }}</td>
+                        <td>{{ machine_fields.drive_axle_serial }}</td>
+                        <td>{{ machine_fields.steer_axle_model }}</td>
+                        <td>{{ machine_fields.steer_axle_serial }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% elif search %}
+        <div class="error-text">Данных о машине с таким заводским номером нет в системе.</div>
+    {% endif %}
+</div>
+{% endblock %}

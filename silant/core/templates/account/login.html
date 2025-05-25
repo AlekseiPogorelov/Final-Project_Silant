@@ -1,0 +1,45 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="login-wrapper" style="min-height: 70vh; display: flex; align-items: center; justify-content: center;">
+  <div class="login-panel" style="background: #EBE6D6; border-radius: 16px; box-shadow: 0 4px 24px rgba(22,62,108,0.08); padding: 36px 32px; max-width: 380px; width: 100%;">
+    <div style="text-align: center; margin-bottom: 18px;">
+      <img src="{% static 'core/img/logo.jpg' %}" alt="Силант" style="height: 52px; margin-bottom: 8px;">
+      <h2 style="color: #163E6C; font-size: 1.7em; font-weight: bold; margin: 0;">Вход в сервис</h2>
+    </div>
+    <form method="post" action="{% url 'account_login' %}" autocomplete="on">
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+        <div class="error-text" style="background: #fff0f0; color: #D20A11; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px;">
+          {{ form.non_field_errors|striptags }}
+        </div>
+      {% endif %}
+      <div class="form-group" style="margin-bottom: 18px;">
+        <label for="id_login" style="color: #163E6C; font-weight: 600;">Логин</label>
+        {% render_field form.login class="form-control" style="width:100%;padding:10px;border-radius:8px;border:1px solid #163E6C;margin-top:4px;" placeholder="Введите логин" %}
+        {% for error in form.login.errors %}
+          <div class="error-text" style="color:#D20A11;">{{ error }}</div>
+        {% endfor %}
+      </div>
+      <div class="form-group" style="margin-bottom: 18px;">
+        <label for="id_password" style="color: #163E6C; font-weight: 600;">Пароль</label>
+        {% render_field form.password class="form-control" style="width:100%;padding:10px;border-radius:8px;border:1px solid #163E6C;margin-top:4px;" placeholder="Введите пароль" %}
+        {% for error in form.password.errors %}
+          <div class="error-text" style="color:#D20A11;">{{ error }}</div>
+        {% endfor %}
+      </div>
+      <button type="submit" class="auth-btn" style="width:100%;background:#D20A11;color:#fff;font-weight:bold;padding:12px 0;border:none;border-radius:8px;font-size:1.1em;transition:background 0.2s;">Войти</button>
+    </form>
+    <div style="margin-top: 18px; text-align:center;">
+      <a href="{% url 'account_reset_password' %}" style="color:#163E6C;text-decoration:underline;">Забыли пароль?</a>
+    </div>
+  </div>
+</div>
+<style>
+@media (max-width: 600px) {
+  .login-panel { padding: 18px 6vw; }
+}
+</style>
+{% endblock %}
